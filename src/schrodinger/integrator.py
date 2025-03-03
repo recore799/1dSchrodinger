@@ -39,7 +39,7 @@ class Integrator:
         # We assume that at the far left (xL) we are in the classically forbidden region.
         # For simplicity, we set psi(xL)=0 and a small nonzero value at the next point.
         psi[0] = 0.0
-        psi[1] = 0.001
+        psi[1] = 1e-6
 
         # g(x)
         G = E-self.V(self.x)
