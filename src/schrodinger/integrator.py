@@ -1,10 +1,7 @@
-#!/usr/bin/env python3
-
 import numpy as np
-import matplotlib.pyplot as plt
 
 class Integrator:
-    def __init__(self,V, xL=-5, xR=5, n=201):
+    def __init__(self,V, xL=-5, xR=5, n=501):
         """
         Initializes the Numerov solver for the harmonic oscillator.
 
@@ -56,29 +53,3 @@ class Integrator:
         return psi
 
 
-def V_ho(x):
-    return x**2
-
-if __name__ == "__main__":
-    # Create an instance of the solver.
-    solver = Integrator(V=V_ho)
-
-    # Known eigenvalues for the harmonic oscillator (in adimensional units) are:
-    # E_n = n + 1/2, for n = 0, 1, 2, ...
-    energies = [1, 3, 5, 7, 9]
-
-    plt.figure(figsize=(10, 6))
-    for E in energies:
-        psi = solver.numerov(E)
-        # Normalize the wavefunction.
-        norm = np.sqrt(np.trapezoid(psi**2, solver.x))
-        psi_norm = psi / norm
-
-        plt.plot(solver.x, psi_norm, label=f"E = {E:.1f}")
-
-    plt.xlabel("x")
-    plt.ylabel("Normalized ψ(x)")
-    plt.title("Harmonic Oscillator Eigenfunctions (Numerov Method)")
-    plt.legend()
-    plt.grid(True)
-    plt.show()

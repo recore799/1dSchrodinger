@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "schrodinger1d"
+version = "0.1.0"
+description = "A Python package for solving the 1D Schrödinger equation using the Numerov method."
+authors = [
+    { name = "Your Name", email = "your.email@example.com" }
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "numpy>=1.21",
+    "scipy>=1.7",
+    "matplotlib>=3.4"
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=6.0",
+    "pytest-cov>=2.0"
+]
+dev = [
+    "black>=21.0",
+    "flake8>=3.9",
+    "mypy>=0.9"
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/1dSchrodinger"
+Documentation = "https://github.com/yourusername/1dSchrodinger#readme"
