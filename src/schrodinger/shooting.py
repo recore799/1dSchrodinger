@@ -33,14 +33,11 @@ class Shooting:
         diff = nodes - target_nodes
         print(f"shoot(E={E:.6f}): nodes = {nodes}, target_nodes = {target_nodes}, diff = {diff}")
 
-        # Optionally, print a few representative psi values for debugging:
         indices = np.linspace(0, len(psi)-1, 10, dtype=int)
         psi_sample = psi[indices]
         print(f"  Sample psi values at indices {indices.tolist()}: {psi_sample}")
 
         return diff
-
-
 
 
     def find_eigenvalue(self, target_nodes, E_min, E_max, tol=1e-6):

@@ -1,0 +1,10 @@
+(undo-tree-save-format-version . 1)
+"7e04239c78cd02b67cc9e4844dbc8e524453a0e6"
+[nil nil nil nil (26565 63655 95668 505000) 0 nil]
+([nil nil ((#("
+" 0 1 (fontified t)) . 1459) (t 26565 62163 395668 57000)) nil (26565 63655 95667 49000) 0 nil])
+([nil nil ((#("
+" 0 1 (fontified t)) . 1459)) nil (26565 63655 95665 177000) 0 nil])
+([nil current ((#("        # Optionally, print a few representative psi values for debugging:
+" 0 8 (fontified t) 8 10 (face font-lock-comment-delimiter-face fontified t) 10 75 (face font-lock-comment-face fontified t)) . 1185) (undo-tree-id0 . -74) (undo-tree-id1 . -75) (undo-tree-id2 . -75) (undo-tree-id3 . -75) (undo-tree-id4 . -75) (undo-tree-id5 . -75) (undo-tree-id6 . -75) (undo-tree-id7 . -75) (undo-tree-id8 . -75) (undo-tree-id9 . -75) (undo-tree-id10 . -75) (undo-tree-id11 . -75)) nil (26565 63655 95660 202000) 0 nil])
+nil
