@@ -1,0 +1,7 @@
+#+title: Numerov
+
+* Solver 1
+
+Correctly implements ground state, ready to analyze
+
+* Solver 2 apparently can find excited states
