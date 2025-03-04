@@ -27,30 +27,54 @@ class Shooting:
                 s_prev = s
         return nodes - 1
 
-    def shoot(self, E, target_nodes):
+    def boundary(self, E):
         psi = self.integrator.numerov(E)
-        nodes = self.count_nodes(psi, tol=1e-6)
-        diff = nodes - target_nodes
-        print(f"shoot(E={E:.6f}): nodes = {nodes}, target_nodes = {target_nodes}, diff = {diff}")
+        # Return the value of the wavefuncion at the boundary
+        return psi[-1]
 
-        indices = np.linspace(0, len(psi)-1, 10, dtype=int)
-        psi_sample = psi[indices]
-        print(f"  Sample psi values at indices {indices.tolist()}: {psi_sample}")
-
-        return diff
-
-
-    def find_eigenvalue(self, target_nodes, E_min, E_max, tol=1e-6):
+    def bracket_eigenvalue(self, target_nodes, E_min, E_max, num=1000, tol=1e-6):
         """
-        Finds the eigenvalue using the shooting method.
+        Scans energies between E_min and E_max to find an interval where
+        the number of nodes changes from target_nodes to something else.
         """
-        return bisect(self.shoot, E_min, E_max, args=(target_nodes,), xtol=tol)
+        energies = np.linspace(E_min, E_max, num)
+        bracket = None
+        prev_nodes = None
+        for E in energies:
+            psi = self.integrator.numerov(E)
+            nodes = self.count_nodes(psi, tol)
+            if prev_nodes is None:
+                prev_nodes = nodes
+                continue
+            # If we've reached the target (or just crossed into it) and then left it,
+            # we assume the eigenvalue lies in this small interval.
+            if prev_nodes == target_nodes and nodes != target_nodes:
+                bracket = (E_prev, E)
+                break
+            E_prev = E
+            prev_nodes = nodes
+        if bracket is None:
+            raise ValueError(f"Could not bracket eigenvalue for target_nodes = {target_nodes}")
+        print(f"Bracketing interval found: {bracket}")
+        return bracket
 
+    def eigenvalue(self, target_nodes, E_min, E_max, tol=1e-6):
+        """
+        Finds the eigenvalue for a given target number of nodes.
+        First, it brackets the eigenvalue using the node count, using the boundary condition (psi(x_R)=0)."""
+
+        # Bracket the eigenvalue using node counting
+        E_bracket = self.bracket_eigenvalue(target_nodes, E_min, E_max, tol=tol)
+        # Refine using boundary function
+        E_eigen = bisect(self.boundary, E_bracket[0], E_bracket[1], xtol=tol)
+        return E_eigen
+
+        
     def solve_state(self, target_nodes, E_min, E_max, tol=1e-6):
         """
         Solves for the eigenvalue and eigenfunction using the shooting method.
         """
-        E = self.find_eigenvalue(target_nodes, E_min, E_max, tol)
+        E = self.eigenvalue(target_nodes, E_min, E_max, tol)
         psi = self.integrator.numerov(E)
         norm = np.sqrt(np.trapezoid(psi**2, self.integrator.x))
         return E, psi / norm

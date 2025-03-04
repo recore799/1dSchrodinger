@@ -17,7 +17,8 @@ def main():
     plt.ylabel("Normalized ψ(x)")
     plt.title("Harmonic Oscillator Eigenfunctions")
     plt.legend()
-    plt.show()
+    # Save the plot instead of showing it
+    plt.savefig("harmonic_oscillator.png", dpi=300, bbox_inches="tight")
 
 if __name__ == "__main__":
     main()
