@@ -1,7 +1,18 @@
 #+title: Numerov
 
-* Solver 1
+* Methods that have been thoroughly tested
 
-Correctly implements ground state, ready to analyze
+** Integrator class
 
-* Solver 2 apparently can find excited states
++ [X] numerov
+
+** Shooting class
+
++ [X] count_nodes
++ [X] boundary
++ [ ] bracket_eigenvalue
+  Works, but have to improve error handling:
+  - [ ] When E_min is a node I get UnboundLocalError
+  - [ ] When there are no energy brackets with the requested number of nodes
++ [ ] eigenvalue
++ [ ] solve_state
